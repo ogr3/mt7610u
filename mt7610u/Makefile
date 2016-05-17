@@ -319,13 +319,7 @@ export OSABL RT28xx_DIR RT28xx_MODE LINUX_SRC CROSS_COMPILE CROSS_COMPILE_INCLUD
 # The targets that may be used.
 PHONY += all build_tools test UCOS THREADX LINUX release prerelease clean uninstall install libwapi osabl
 
-ifeq ($(TARGET),LINUX)
-all: build_tools $(TARGET)
-else
-all: $(TARGET)
-endif 
-
-
+all:$(TARGET)
 
 build_tools:
 	$(MAKE) -C tools
@@ -378,7 +372,6 @@ ifeq ($(OSABL),YES)
 	cp -f $(RT28xx_DIR)/os/linux/rtnet$(MODULE)_apsta.o /tftpboot
 endif
 else
-	cp -f $(RT28xx_DIR)/os/linux/$(MODULE)_sta.o /tftpboot
 ifeq ($(OSABL),YES)
 	cp -f $(RT28xx_DIR)/os/linux/rtutil$(MODULE)_sta.o /tftpboot
 	cp -f $(RT28xx_DIR)/os/linux/rtnet$(MODULE)_sta.o /tftpboot
@@ -424,7 +417,6 @@ ifeq ($(OSABL),YES)
 	cp -f $(RT28xx_DIR)/os/linux/$(MODULE)_apsta_net.ko /tftpboot
 endif
 else
-	cp -f $(RT28xx_DIR)/os/linux/$(MODULE)_sta.ko /tftpboot 2>/dev/null || :
 ifeq ($(OSABL),YES)
 	cp -f $(RT28xx_DIR)/os/linux/$(MODULE)_sta_util.ko /tftpboot 2>/dev/null || :
 	cp -f $(RT28xx_DIR)/os/linux/$(MODULE)_sta_net.ko /tftpboot 2>/dev/null || :
